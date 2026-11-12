@@ -42,8 +42,8 @@ def wiki_page(index: Index, entity: str, llm: LLM | None = None) -> str:
     for cid in chunk_ids:
         by_kind.setdefault(index.chunks[cid].kind, []).append(cid)
 
-    lines = [f"# {name}", "", f"*{etype}* · mentioned in {len(chunk_ids)} chunks across "
-             f"{len({index.chunks[c].doc_id for c in chunk_ids})} documents", ""]
+    lines = [f"# {name}", "", (f"*{etype}* · mentioned in {len(chunk_ids)} chunks across "
+                                 f"{len({index.chunks[c].doc_id for c in chunk_ids})} documents"), ""]
     defining = [c for c in by_kind.get("code", []) if re.search(rf"(class|def|object|trait|func)\s+{re.escape(name)}\b",
                                                                  index.chunks[c].text)]
     overview_ids = (defining or chunk_ids)[:3]

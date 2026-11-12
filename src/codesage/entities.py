@@ -10,8 +10,8 @@ TECH_TERMS = {
     "s3", "gcs", "bigquery", "pubsub", "elasticsearch", "mysql", "airflow", "terraform", "jwt", "oauth",
     "hikari", "connection pool", "retry", "timeout", "circuit breaker", "rate limit", "idempotency",
 }
-_TECH_RE = re.compile(r"\b(" + "|".join(sorted(map(re.escape, TECH_TERMS), key=len, reverse=True)) + r")\b", re.I)
-_SYMBOL_RE = re.compile(r"^\s*(?:async\s+)?(?:def|class|func|object|trait|case class)\s+([A-Za-z_][A-Za-z0-9_]*)", re.M)
+_TECH_RE = re.compile(r"\b(" + "|".join(sorted(map(re.escape, TECH_TERMS), key=len, reverse=True)) + r")\b", re.IGNORECASE)
+_SYMBOL_RE = re.compile(r"^\s*(?:async\s+)?(?:def|class|func|object|trait|case class)\s+([A-Za-z_][A-Za-z0-9_]*)", re.MULTILINE)
 _INCIDENT_RE = re.compile(r"\b(?:INC|RCA|SEV)-\d{2,6}\b")
 _PATH_RE = re.compile(r"\b[\w-]+(?:/[\w.-]+)+\.(?:py|java|scala|go|ts|js|kt|sql|ya?ml)\b")
 _SERVICE_RE = re.compile(r"\bservices/([\w-]+)/")

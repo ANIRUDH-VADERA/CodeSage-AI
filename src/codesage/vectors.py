@@ -7,6 +7,7 @@ import math
 import os
 import re
 import urllib.request
+from itertools import pairwise
 from typing import Protocol
 
 _TOKEN = re.compile(r"[a-z0-9_]+")
@@ -32,7 +33,7 @@ class HashingEmbedder:
     def _vec(self, text: str) -> list[float]:
         v = [0.0] * self.dim
         toks = _split_identifiers(text)
-        for feat in toks + [f"{a} {b}" for a, b in zip(toks, toks[1:])]:
+        for feat in toks + [f"{a} {b}" for a, b in pairwise(toks)]:
             h = int.from_bytes(hashlib.blake2b(feat.encode(), digest_size=8).digest(), "big")
             v[h % self.dim] += 1.0 if (h >> 63) & 1 else -1.0
         norm = math.sqrt(sum(x * x for x in v)) or 1.0
@@ -83,7 +84,7 @@ class ChromaVectorStore:
     """Persistent store backed by ChromaDB (pip install 'codesage[chroma]')."""
 
     def __init__(self, path: str, collection: str = "codesage") -> None:
-        import chromadb  # noqa: PLC0415 - optional dependency
+        import chromadb  # optional dependency
 
         self._col = chromadb.PersistentClient(path=path).get_or_create_collection(collection, metadata={"hnsw:space": "cosine"})
 

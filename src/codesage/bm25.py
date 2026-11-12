@@ -5,7 +5,10 @@ import math
 import re
 from collections import Counter
 
-STOP = frozenset("a an the and or of to in on for is are was were be how what why when do does it this that with by as at from".split())
+STOP = frozenset({
+    "a", "an", "the", "and", "or", "of", "to", "in", "on", "for", "is", "are", "was", "were", "be", "how",
+    "what", "why", "when", "do", "does", "it", "this", "that", "with", "by", "as", "at", "from",
+})
 
 
 def tokenize(text: str) -> list[str]:

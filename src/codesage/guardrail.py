@@ -33,7 +33,7 @@ def parse_diff(diff: str) -> list[FileChange]:
     for line in diff.splitlines():
         if line.startswith("+++ "):
             path = line[4:].strip()
-            files.append(FileChange(path[2:] if path.startswith("b/") else path))
+            files.append(FileChange(path.removeprefix("b/")))
         elif files and line.startswith("+") and not line.startswith("+++"):
             files[-1].added.append(line[1:])
         elif files and line.startswith("-") and not line.startswith("---"):

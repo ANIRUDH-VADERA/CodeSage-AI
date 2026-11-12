@@ -8,7 +8,7 @@ from pathlib import Path
 CODE_EXT = {".py", ".java", ".scala", ".go", ".js", ".ts", ".kt", ".rb", ".sql"}
 DOC_EXT = {".md", ".txt", ".rst"}
 SKIP_DIRS = {".git", "node_modules", "__pycache__", ".venv", "venv", "build", "dist", "target"}
-FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.S)
+FRONT_MATTER = re.compile(r"\A---\n(.*?)\n---\n", re.DOTALL)
 
 
 @dataclass
