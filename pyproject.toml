@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codesage"
+version = "0.1.0"
+description = "LLM-ready engineering knowledge engine: hybrid retrieval, an entity knowledge graph, cited wiki pages, and PR guardrails."
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "Anirudh Vadera" }]
+dependencies = ["networkx>=3.0"]
+
+[project.optional-dependencies]
+chroma = ["chromadb>=0.5"]
+dev = ["pytest>=8", "ruff>=0.5"]
+
+[project.scripts]
+codesage = "codesage.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+codesage = ["data/*.diff", "data/demo_corpus/**/*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"

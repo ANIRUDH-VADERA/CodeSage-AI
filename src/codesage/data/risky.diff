@@ -1,0 +1,25 @@
+diff --git a/services/payments/settings.py b/services/payments/settings.py
+--- a/services/payments/settings.py
++++ b/services/payments/settings.py
+@@ -1,4 +1,4 @@
+ # Gateway p99 latency is about 1.4s; keep the timeout above it (see INC-1001).
+-HTTP_TIMEOUT = 2.0
++HTTP_TIMEOUT = 0.5
+ RETRIES = 3
+-DB_POOL_SIZE = 20
++DB_POOL_SIZE = 5
+diff --git a/services/payments/client.py b/services/payments/client.py
+--- a/services/payments/client.py
++++ b/services/payments/client.py
+@@ -20,9 +20,5 @@ class PaymentClient:
+     def charge(self, account_id, amount_minor, currency="INR"):
+         key = str(uuid.uuid4())
+-        for attempt in range(self.retries + 1):
+-            try:
+-                return self.transport.post("/charges", {"account": account_id, "amount": amount_minor,
+-                                                        "currency": currency}, idempotency_key=key, timeout=self.timeout)
+-            except GatewayTimeout:
+-                if attempt == self.retries:
+-                    raise
++        return self.transport.post("/charges", {"account": account_id, "amount": amount_minor,
++                                                "currency": currency}, idempotency_key=key, timeout=self.timeout)
