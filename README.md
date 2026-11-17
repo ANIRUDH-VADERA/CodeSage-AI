@@ -8,6 +8,8 @@
 
 > CodeSage AI started as a project I built at a company AI hackathon, where it was a finalist. That build indexed **53,000 documents** (561 repositories, 1,386 incidents, 43 RCAs) and modelled knowledge bases for **1,287 users**. **This repository is an independent open-source reimplementation written from scratch.** It contains none of the original code or data and ships a small synthetic demo corpus instead.
 
+> **Design inspiration:** Andrej Karpathy's idea of an LLM-maintained wiki, where a model keeps a living, cross-linked knowledge base up to date instead of answering from raw chunks every time. CodeSage applies it to engineering knowledge: the entity graph decides what links to what, and every generated page cites its sources.
+
 ## What it does
 
 | Capability | How |
